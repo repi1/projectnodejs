@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1; /* Show the spin buttons */
+  -webkit-appearance: inner-spin-button; /* Make the spin buttons visible */
+}
+
+input[type="number"] {
+  -moz-appearance: number-input; /* For Firefox */
+}
+
+/* :root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+} */
+
+@layer utilities {
+  html {
+    scroll-behavior: smooth;
+  }
+  .flex-container {
+    display: flex;
+    overflow-x: scroll;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+  }
+
+  .flex-item {
+    display: inline-block;
+    /* Additional styling for the flex item */
+  }
+}
