@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+}
+
+enum Users_role {
+  user
+  storeAdmin
+  superAdmin
+}
+
+enum Gender {
+  male
+  female
+}
+
+model Users {
+  id           String         @unique @default(uuid()) @db.VarChar(255)
+  referralNum  String         @unique @default(uuid()) @db.VarChar(255)
+  email        String         @unique @db.VarChar(255)
+  password     String         @default(uuid()) @db.VarChar(255)
+  name         String         @db.VarChar(255)
+  gender       Gender         @default(male)
+  birthDate    DateTime?      @db.Date
+  avatarURL    String?        @db.VarChar(255)
+  role         Users_role     @default(user)
+  storeId      String?        
+  isVerified   Boolean        @default(false)
+  isReset      Boolean        @default(false)
+  createdAt    DateTime       @default(now())
+  carts        Carts[]
+  orders       Orders[]
+}
+
+model Products {
+  id            String          @unique @default(uuid()) @db.VarChar(255)
+  name          String          @unique @db.VarChar(255)
+  price         Decimal         @db.Decimal(18, 2)
+  categoryId    String          @db.VarChar(255)
+  weight        Decimal         @db.Decimal(18, 2)
+  productPhotos ProductPhotos[]
+  categories    Categories      @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  stocks        Decimal         @db.Decimal(18, 2) @default(0)
+  carts         Carts[]
+}
+
+model Categories {
+  id       String     @unique @db.VarChar(255)
+  name     String     @db.VarChar(255)
+  products Products[]
+}
+
+model ProductPhotos {
+  id        String   @unique @db.VarChar(255)
+  productId String   @db.VarChar(255)
+  photoURL  String   @db.VarChar(255)
+  products  Products @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Carts {
+  userId    String   @db.VarChar(255)
+  productId String   @db.VarChar(255) @unique
+  qty       Decimal  @db.Decimal(18, 2)
+  users     Users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products  Products @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  @@id([userId, productId])
+}
+
+model Orders {
+  id           String         @unique @db.VarChar(255)
+  invoiceNo    String         @db.VarChar(255)
+  userId       String         @db.VarChar(255)
+  storeId      String         @db.VarChar(255)
+  createdAt    DateTime       @default(now())
+  deliveredAt  DateTime?
+  addressId    String?        @db.VarChar(255) // New field for addressId
+  users        Users          @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  ImageUrl     String?        @default("") 
+  total        Decimal?       
+}
