@@ -13,6 +13,8 @@ export const cartController = {
           products: {
             select: {
               name: true,
+              price: true,
+              stocks: true,
               productPhotos: {
                 select: {
                   photoURL: true,

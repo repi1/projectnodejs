@@ -1,15 +1,15 @@
 import NavbarComponent from "@/components/navbar";
-import ProductDetailImage from "../../../components/productDetail";
+import CartListComponent from "../../../components/cartList";
 export const metadata = {
-  title: "Product Detail",
-  description: "Belanja di SupMart",
+  title: "Cart Items",
+  description: "Cart items detail",
 };
 
 async function Page({ params }) {
   return (
     <>
       <NavbarComponent />
-      <ProductDetailImage params={params} />
+      <CartListComponent />
     </>
   );
 }

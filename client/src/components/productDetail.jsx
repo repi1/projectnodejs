@@ -55,9 +55,9 @@ function ProductDetailImage({ params }) {
                 qty: Number(existingCart.qty) + Number(qty),
               })
               .then(() => {
-                axiosInstance().patch("/products/" + productId, {
-                  stocks: updatedStock,
-                });
+                // axiosInstance().patch("/products/" + productId, {
+                //   stocks: updatedStock,
+                // });
                 alert("Produk berhasil ditambah");
                 window.location.reload();
               })
@@ -74,9 +74,9 @@ function ProductDetailImage({ params }) {
                 productId: productId,
               })
               .then(() => {
-                axiosInstance().patch("/products/" + productId, {
-                  stocks: updatedStock,
-                });
+                // axiosInstance().patch("/products/" + productId, {
+                //   stocks: updatedStock,
+                // });
                 alert("Produk berhasil dibeli");
                 window.location.reload();
               })
